@@ -1,73 +1,29 @@
-/**
- * Export functions you want to work with, see documentation for details:
- * https://github.com/zeplin/zeplin-extension-documentation
- */
+import {
+  getStyleguideColorsCode,
+  getStyleguideTextStylesCode,
+  getLayerCode
+} from "./code-helpers";
+import { OPTION_NAMES } from "./constants";
+import { getResourceContainer, getResources } from "./utils";
 
 function layer(context, selectedLayer) {
+  var containerAndType = getResourceContainer(context);
+  var options = {
+    useLinkedStyleguides: context.getOption(
+      OPTION_NAMES.USE_LINKED_STYLEGUIDES
+    ),
+    showDimensions: context.getOption(OPTION_NAMES.SHOW_DIMENSIONS),
+    colorFormat: context.getOption(OPTION_NAMES.COLOR_FORMAT),
+    defaultValues: context.getOption(OPTION_NAMES.SHOW_DEFAULT_VALUES)
+  };
+  var code = getLayerCode(containerAndType, selectedLayer, options);
 
-}
-
-function screen(context, selectedVersion, selectedScreen) {
-
-}
-
-function component(context, selectedVersion, selectedComponent) {
-
-}
-
-function colors(context) {
-
-}
-
-function textStyles(context) {
-
-}
-
-function exportColors(context) {
-
-}
-
-function exportTextStyles(context) {
-
-}
-
-/**
- * The following functions will be deprecated. Your extensions can export them to support old versions of Zeplin's macOS app.
- * See Zeplin Extensions migration guide for details:
- * https://zpl.io/shared-styleguides-extensions-migration-guide
- */
-
-function styleguideColors(context, colors) {
-
-}
-
-function styleguideTextStyles(context, textStyles) {
-
-}
-
-function exportStyleguideColors(context, colors) {
-
-}
-
-function exportStyleguideTextStyles(context, textStyles) {
-
-}
-
-function comment(context, text) {
-
+  return {
+    code: code,
+    language: "javascript"
+  };
 }
 
 export default {
-    layer,
-    screen,
-    component,
-    colors,
-    textStyles,
-    exportColors,
-    exportTextStyles,
-    styleguideColors,
-    styleguideTextStyles,
-    exportStyleguideColors,
-    exportStyleguideTextStyles,
-    comment
+  layer
 };

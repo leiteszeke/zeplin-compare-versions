@@ -7,6 +7,8 @@
     "build": "zem build",
     "clean": "zem clean",
     "exec": "zem exec",
+    "build:test": "zem build --dev",
+    "test": "npm run build:test && jest --testURL http://localhost && npm run clean",
     "publish": "zem publish"
   },
   "zeplin": {
